@@ -12,9 +12,10 @@ public class SceneManager : MonoBehaviour
     private Vector3 spawnPosition = new Vector3(40f, 0.7767304f, 6f);
     private int index;
     private float distanceTravelled;
-    private float distance = 100;
+    private float distance = 500;
     public bool level1Completed=false;
     private Animator animator;
+    private bool isLanding = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -32,7 +33,8 @@ public class SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!level1Completed)
+        isLanding = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Land");
+        if (!level1Completed && !isLanding)
         {
             wallPrefab.transform.Translate(Vector3.left * Time.deltaTime * 5f);
             if (Vector3.Distance(wallPrefab.transform.position, initialWallPos) >= width / 2)
@@ -46,7 +48,6 @@ public class SceneManager : MonoBehaviour
                 }
             }
         }
-        // barriers[index].transform.Translate(Vector3.left*Time.deltaTime*5f);
     }
 
     void GenerateObstacles()

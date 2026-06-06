@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     private bool isGrounded = true;
     private Animator animator;
     private SceneManager sceneManagerScript;
+    private bool isLanding = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,16 +19,13 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isLanding = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Land");
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !sceneManagerScript.level1Completed)
         {
             animator.SetBool("isJump",true);
             rb.AddForce(Vector3.up*150f,ForceMode.Impulse);
             isGrounded = false;
         }
-        // if (sceneManagerScript.level1Completed)
-        // {
-        //     animator.SetBool("isJump",false);
-        // }
     }
 
     void OnCollisionEnter(Collision collision)

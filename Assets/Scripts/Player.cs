@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Player : MonoBehaviour
     private Animator animator;
     private SceneManager sceneManagerScript;
     private bool isLanding = false;
+    private TMP_Text endInfo;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,6 +16,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         sceneManagerScript = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+        endInfo = sceneManagerScript.endInfo;
     }
 
     // Update is called once per frame
@@ -40,6 +43,7 @@ public class Player : MonoBehaviour
             sceneManagerScript.level1Completed = true;
             Destroy(gameObject);
             Destroy(collision.gameObject);
+            endInfo.text = "Level "+1+" failed!";
         }
     }
 

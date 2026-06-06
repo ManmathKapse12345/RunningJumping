@@ -6,11 +6,15 @@ public class Obstacles : MonoBehaviour
     private SceneManager sceneManagerScript;
     private Animator animator;
     private bool isLanding = false;
+    private Vector3 initialWallPos;
+    private float width;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         sceneManagerScript = GameObject.Find("SceneManager").GetComponent<SceneManager>();
         animator = GameObject.Find("Player").GetComponent<Animator>();
+        width = sceneManagerScript.width;
+        initialWallPos = sceneManagerScript.initialWallPos;
     }
 
     // Update is called once per frame
@@ -21,6 +25,10 @@ public class Obstacles : MonoBehaviour
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
 
+        }
+        if(transform.position.x < initialWallPos.x-width/2)
+        {
+            Destroy(gameObject);
         }
     }
 }

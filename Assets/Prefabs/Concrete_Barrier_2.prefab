@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1560222079217272260}
   m_Layer: 0
   m_Name: Concrete_Barrier_2
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1571989830844677357}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000021855694, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44.24, y: 0.77673036, z: 6}
+  m_LocalPosition: {x: 23.87, y: 0.7767306, z: 3.8873231}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

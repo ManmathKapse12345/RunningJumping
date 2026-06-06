@@ -35,6 +35,12 @@ public class Player : MonoBehaviour
             isGrounded = true;
             animator.SetBool("isJump",false);
         }
+        if (collision.gameObject.CompareTag("Obstacle"))
+        {
+            sceneManagerScript.level1Completed = true;
+            Destroy(gameObject);
+            Destroy(collision.gameObject);
+        }
     }
 
 }

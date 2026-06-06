@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class SceneManager : MonoBehaviour
@@ -6,9 +7,14 @@ public class SceneManager : MonoBehaviour
     private Renderer rend;
     private float width;
     private Vector3 initialWallPos;
+    private const int numberOfObstacles = 5;
+    public GameObject[] barriers = new GameObject[numberOfObstacles];
+    private Vector3 spawnPosition = new Vector3(40f,0.7767304f,6f);
+    private int index;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        InvokeRepeating("GenerateObstacles",3f,10f);
         rend = wallPrefab.GetComponent<Renderer>();
         Vector3 wallSize = rend.bounds.size;
         width = wallSize.x;
@@ -26,5 +32,13 @@ public class SceneManager : MonoBehaviour
         {
             wallPrefab.transform.position = initialWallPos;
         }
+        // barriers[index].transform.Translate(Vector3.left*Time.deltaTime*5f);
+    }
+
+    void GenerateObstacles()
+    {
+        index = Random.Range(0,numberOfObstacles);
+        Instantiate(barriers[index],spawnPosition,barriers[index].transform.rotation);
+        // yield return new WaitForSeconds(5f);
     }
 }

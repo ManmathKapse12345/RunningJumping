@@ -1,8 +1,9 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
-public class SceneManager : MonoBehaviour
+public class SceneManagerScript : MonoBehaviour
 {
     public GameObject wallPrefab;
     private Renderer rend;
@@ -18,6 +19,7 @@ public class SceneManager : MonoBehaviour
     private Animator animator;
     private bool isLanding = false;
     public TMP_Text endInfo;
+    private bool isRunningJumping=false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -36,8 +38,9 @@ public class SceneManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        isRunningJumping = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Run01_Forward") || animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Begin");
         isLanding = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Land");
-        if (!level1Completed && !isLanding)
+        if (!level1Completed && !isLanding && isRunningJumping)
         {
             wallPrefab.transform.Translate(Vector3.left * Time.deltaTime * 5f);
             if (Vector3.Distance(wallPrefab.transform.position, initialWallPos) >= width / 2)
@@ -52,6 +55,11 @@ public class SceneManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void GoToLevelScene()
+    {
+        SceneManager.LoadScene("LevelScene");
     }
 
     void GenerateObstacles()

@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
     private bool isGrounded = true;
     private Animator animator;
-    private SceneManager sceneManagerScript;
+    private SceneManagerScript sceneManagerScript;
     private bool isLanding = false;
     private TMP_Text endInfo;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
         // sceneManagerScript
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        sceneManagerScript = GameObject.Find("SceneManager").GetComponent<SceneManager>();
+        sceneManagerScript = GameObject.Find("SceneManager").GetComponent<SceneManagerScript>();
         endInfo = sceneManagerScript.endInfo;
     }
 

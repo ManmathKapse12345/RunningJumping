@@ -20,9 +20,16 @@ public class SceneManagerScript : MonoBehaviour
     private bool isLanding = false;
     public TMP_Text endInfo;
     private bool isRunningJumping=false;
+    public bool isPause=false;
+    private const int numberOfPauseMenuObject = 4;
+    public GameObject[] pauseMenuObject = new GameObject[numberOfPauseMenuObject];
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        for(int i = 0; i < numberOfPauseMenuObject; i++)
+        {
+            pauseMenuObject[i].SetActive(false);
+        }
         endInfo.text = "";
         animator = GameObject.Find("Player").GetComponent<Animator>();
         InvokeRepeating("GenerateObstacles", 3f, 10f);
@@ -40,7 +47,7 @@ public class SceneManagerScript : MonoBehaviour
     {
         isRunningJumping = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Run01_Forward") || animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Begin");
         isLanding = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Land");
-        if (!level1Completed && !isLanding && isRunningJumping)
+        if (!level1Completed && !isLanding && isRunningJumping && !isPause)
         {
             wallPrefab.transform.Translate(Vector3.left * Time.deltaTime * 5f);
             if (Vector3.Distance(wallPrefab.transform.position, initialWallPos) >= width / 2)
@@ -55,6 +62,29 @@ public class SceneManagerScript : MonoBehaviour
                 }
             }
         }
+    }
+
+    public void MakePauseMenuAppear()
+    {
+        isPause = true;
+        for(int i = 0; i < numberOfPauseMenuObject; i++)
+        {
+            pauseMenuObject[i].SetActive(true);
+        }
+    }
+
+    public void MakePauseMenuDisappear()
+    {
+        isPause = false;
+        for(int i = 0; i<numberOfPauseMenuObject; i++)
+        {
+            pauseMenuObject[i].SetActive(false);
+        }
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void GoToLevelScene()

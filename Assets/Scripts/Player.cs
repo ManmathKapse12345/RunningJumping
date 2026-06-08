@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         isLanding = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Land");
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !sceneManagerScript.level1Completed)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !sceneManagerScript.level1Completed && !sceneManagerScript.isPause)
         {
             animator.SetBool("isJump",true);
             rb.AddForce(Vector3.up*150f,ForceMode.Impulse);

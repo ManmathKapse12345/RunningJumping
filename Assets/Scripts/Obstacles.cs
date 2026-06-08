@@ -23,7 +23,7 @@ public class Obstacles : MonoBehaviour
     {
         isLanding = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Land");
         isRunningJumping = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Run01_Forward") || animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Begin");
-        if (!sceneManagerScript.level1Completed && !isLanding && isRunningJumping)
+        if (!sceneManagerScript.level1Completed && !isLanding && isRunningJumping && !sceneManagerScript.isPause)
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
 

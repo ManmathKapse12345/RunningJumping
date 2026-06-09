@@ -23,22 +23,29 @@ public class SceneManagerScript : MonoBehaviour
     public bool isPause=false;
     private const int numberOfPauseMenuObject = 4;
     public GameObject[] pauseMenuObject = new GameObject[numberOfPauseMenuObject];
+    private int[] repeatingRate=new int[]{10,8,7,6,5};
+    public int[] playerSpeed=new int[]{5,6,7,8,9};
+    private GameManager gameManagerScript;
+    public int level;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        level=GameManager.Instance.level;
+        Debug.Log("Level :- " + level);
+        Debug.Log("Players Speed :- " + playerSpeed[level]);
         for(int i = 0; i < numberOfPauseMenuObject; i++)
         {
             pauseMenuObject[i].SetActive(false);
         }
         endInfo.text = "";
         animator = GameObject.Find("Player").GetComponent<Animator>();
-        InvokeRepeating("GenerateObstacles", 3f, 10f);
+        InvokeRepeating("GenerateObstacles", 3f, repeatingRate[level]);
         rend = wallPrefab.GetComponent<Renderer>();
         Vector3 wallSize = rend.bounds.size;
         width = wallSize.x;
-        Debug.Log("X :- " + wallSize.x);
-        Debug.Log("Y :- " + wallSize.y);
-        Debug.Log("Z :- " + wallSize.z);
+        // Debug.Log("X :- " + wallSize.x);
+        // Debug.Log("Y :- " + wallSize.y);
+        // Debug.Log("Z :- " + wallSize.z);
         initialWallPos = wallPrefab.transform.position;
     }
 
@@ -49,7 +56,7 @@ public class SceneManagerScript : MonoBehaviour
         isLanding = animator.GetCurrentAnimatorStateInfo(0).IsName("HumanM@Jump01 - Land");
         if (!level1Completed && !isLanding && isRunningJumping && !isPause)
         {
-            wallPrefab.transform.Translate(Vector3.left * Time.deltaTime * 5f);
+            wallPrefab.transform.Translate(Vector3.left * Time.deltaTime * playerSpeed[level]);
             if (Vector3.Distance(wallPrefab.transform.position, initialWallPos) >= width / 2)
             {
                 distanceTravelled = distanceTravelled+width/2;
@@ -66,6 +73,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public void MakePauseMenuAppear()
     {
+        animator.SetBool("isOver",true);
         isPause = true;
         for(int i = 0; i < numberOfPauseMenuObject; i++)
         {
@@ -75,6 +83,7 @@ public class SceneManagerScript : MonoBehaviour
 
     public void MakePauseMenuDisappear()
     {
+        animator.SetBool("isOver",false);
         isPause = false;
         for(int i = 0; i<numberOfPauseMenuObject; i++)
         {

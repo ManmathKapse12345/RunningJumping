@@ -2,17 +2,20 @@ using UnityEngine;
 
 public class Obstacles : MonoBehaviour
 {
-    private float speed = 5f;
+    private float speed;
     private SceneManagerScript sceneManagerScript;
     private Animator animator;
     private bool isLanding = false;
     private Vector3 initialWallPos;
     private float width;
     private bool isRunningJumping=false;
+    // private int level;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        // level = GameManager.Instance.level;
         sceneManagerScript = GameObject.Find("SceneManager").GetComponent<SceneManagerScript>();
+        speed = sceneManagerScript.playerSpeed[sceneManagerScript.level];
         animator = GameObject.Find("Player").GetComponent<Animator>();
         width = sceneManagerScript.width;
         initialWallPos = sceneManagerScript.initialWallPos;

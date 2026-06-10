@@ -11,10 +11,10 @@ public class SceneManagerScript : MonoBehaviour
     public Vector3 initialWallPos;
     private const int numberOfObstacles = 5;
     public GameObject[] barriers = new GameObject[numberOfObstacles];
-    private Vector3 spawnPosition = new Vector3(40f, 0.7767304f, 6f);
+    private Vector3 spawnPosition = new Vector3(40f, 0.76f, 6f);
     private int index;
     private float distanceTravelled;
-    private float distance = 500;
+    private float[] distance = new float[]{500,1000,2000,3000,4000};
     public bool level1Completed=false;
     private Animator animator;
     private bool isLanding = false;
@@ -23,9 +23,8 @@ public class SceneManagerScript : MonoBehaviour
     public bool isPause=false;
     private const int numberOfPauseMenuObject = 4;
     public GameObject[] pauseMenuObject = new GameObject[numberOfPauseMenuObject];
-    private int[] repeatingRate=new int[]{10,8,7,6,5};
-    public int[] playerSpeed=new int[]{5,6,7,8,9};
-    private GameManager gameManagerScript;
+    private int[] repeatingRate=new int[]{10,8,6,5,4};
+    public int[] playerSpeed=new int[]{5,7,9,11,12};
     public int level;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -43,9 +42,6 @@ public class SceneManagerScript : MonoBehaviour
         rend = wallPrefab.GetComponent<Renderer>();
         Vector3 wallSize = rend.bounds.size;
         width = wallSize.x;
-        // Debug.Log("X :- " + wallSize.x);
-        // Debug.Log("Y :- " + wallSize.y);
-        // Debug.Log("Z :- " + wallSize.z);
         initialWallPos = wallPrefab.transform.position;
     }
 
@@ -60,12 +56,13 @@ public class SceneManagerScript : MonoBehaviour
             if (Vector3.Distance(wallPrefab.transform.position, initialWallPos) >= width / 2)
             {
                 distanceTravelled = distanceTravelled+width/2;
+                Debug.Log("Distance travelled :- "+distanceTravelled);
                 wallPrefab.transform.position = initialWallPos;
-                if(distanceTravelled == distance)
+                if(distanceTravelled == distance[level])
                 {
                     animator.SetBool("isOver",true);
                     level1Completed = true;
-                    endInfo.text = "Level " + 1 + " Completed!";
+                    endInfo.text = "Level " + level+1 + " Completed!";
                 }
             }
         }

@@ -9,10 +9,12 @@ public class Player : MonoBehaviour
     private SceneManagerScript sceneManagerScript;
     private bool isLanding = false;
     private TMP_Text endInfo;
+    private int level;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         // sceneManagerScript
+        level = GameManager.Instance.level;
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         sceneManagerScript = GameObject.Find("SceneManager").GetComponent<SceneManagerScript>();
@@ -43,7 +45,7 @@ public class Player : MonoBehaviour
             sceneManagerScript.level1Completed = true;
             Destroy(gameObject);
             Destroy(collision.gameObject);
-            endInfo.text = "Level "+1+" failed!";
+            endInfo.text = "Level "+level+1+" failed!";
         }
     }
 

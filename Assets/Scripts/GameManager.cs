@@ -7,40 +7,42 @@ public class GameManager : MonoBehaviour
     public int level;
     private void Awake()
     {
-        if(Instance == null)
+        if(Instance != null && Instance != this)
         {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
+            Destroy(Instance.gameObject);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance=this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public void ChooseLevel1()
     {
-        level=0;
+        Debug.Log("Level 1 is clicked");
+        GameManager.Instance.level=0;
         SceneManager.LoadScene("GameScene");
     }
     public void ChooseLevel2()
     {
-        level=1;
+        Debug.Log("Level 2 is clicked");
+        GameManager.Instance.level=1;
         SceneManager.LoadScene("GameScene");
     }
     public void ChooseLevel3()
     {
-        level=2;
+        Debug.Log("Level 3 is clicked");
+        GameManager.Instance.level=2;
         SceneManager.LoadScene("GameScene");
     }
     public void ChooseLevel4()
     {
-        level=3;
+        Debug.Log("Level 4 is clicked");
+        GameManager.Instance.level=3;
         SceneManager.LoadScene("GameScene");
     }
     public void ChooseLevel5()
     {
-        level=4;
+        Debug.Log("Level 5 is clicked");
+        GameManager.Instance.level=4;
         SceneManager.LoadScene("GameScene");
     }
 }
